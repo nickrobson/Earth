@@ -21,11 +21,13 @@ def run_tray():
 
 def fetch_timer(limit=20):
     fetch_images(limit=limit)
+    # 60 * 60 means 1 hour (this is in seconds)
     t = Timer(60 * 60, fetch_timer)
     t.start()
 
 
 def bg_timer():
     set_random_background()
+    # 60 * 5 means 5 minutes (this is in seconds)
     t = Timer(60 * 5, bg_timer)
     t.start()
