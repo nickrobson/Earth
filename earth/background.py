@@ -13,7 +13,7 @@ except ImportError:
 
 def set_background_image(image):
     if plat == 'Windows':
-        ctypes.windll.user32.SystemParametersInfoW(0x14, 0, image, 0x2)
+        windll.user32.SystemParametersInfoW(0x14, 0, image, 0x2)
     elif plat == 'Mac OS X':
         app('System Events').desktops.picture.set(image)
     else:
