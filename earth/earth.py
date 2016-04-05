@@ -56,6 +56,13 @@ def fetch_image(name, url):
 
 
 def fetch_images(limit=20):
+    files = os.listdir(imagedir)
+    files = filter(lambda f: f.endswith('.jpg') or f.endswith('.png'), files)
+    files = map(lambda f: os.path.join(imagedir, f), files)
+    # Delete old files after 2 days.
+    files = filter(lambda f: os.path.getmtime(f) < int(time.time()) - (60 * 60 * 24 * 2), files)
+    for f in files:
+        os.remove(f)
     for name, url in get_image_urls(limit=limit):
         fetch_image(name, url)
 
