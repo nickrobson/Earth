@@ -13,7 +13,7 @@ imagedir = earthdir + '/images'
 if not os.path.isdir(imagedir):
     os.mkdir(imagedir)
 
-ua = '%s:%s:%s (by /u/fusion_games)' % (sys.platform, __name__, '0.0.1')
+ua = '%s:%s:%s (by /u/fusion_games)' % (sys.platform, 'Earth', '1.0.0')
 reddit = praw.Reddit(user_agent=ua)
 
 
