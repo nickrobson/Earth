@@ -6,9 +6,20 @@ import random
 import requests
 import time
 
+try:
+    import simplejson as json
+except:
+    import json
+
 earthdir = os.path.expanduser('~/.earth')
 filesdir = earthdir + '/source'
 imagedir = earthdir + '/images'
+
+cfg = os.path.join(filesdir, 'config.json')
+config = dict()
+if os.path.isfile(cfg):
+    with open(cfg, 'r') as f:
+        config = json.loads(f.read())
 
 if not os.path.isdir(imagedir):
     os.mkdir(imagedir)
@@ -47,7 +58,7 @@ def fetch_image(name, url):
     res = requests.get(url, stream=True)
     ext = get_ext(res.headers['Content-Type'])
     clen = res.headers.get('Content-Length', 0)
-    if long(clen) > long(32 * 10 ** 7):  # 32 MB
+    if long(clen) > long(config.get('max_file_size', 32 * 10 ** 7)):  # 32 MB
         print 'Skipped', name, '(' + str(res.headers['Content-Length']) + ')'
         return
     if ext == 'N/A':
@@ -64,10 +75,11 @@ def fetch_images(limit=20):
     files = os.listdir(imagedir)
     files = filter(lambda f: f.endswith('.jpg') or f.endswith('.png'), files)
     files = map(lambda f: os.path.join(imagedir, f), files)
+    keep_time = config.get('keep_file_time', 60 * 60 * 24 * 2)
 
     # Delete old files after 2 days.
     def delta(f):
-        return os.path.getmtime(f) < int(time.time()) - (60 * 60 * 24 * 2)
+        return os.path.getmtime(f) < int(time.time()) - keep_time
 
     files = filter(delta, files)
     for f in files:

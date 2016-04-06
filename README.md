@@ -3,7 +3,7 @@
 Earth is a simplistic Python application for setting your background picture to a current top post on Reddit's `/r/EarthPorn`.
 
 By default, it fetches 20 images every hour that it is enabled, and changes the background image every five minutes.
-These quotas can be changed in [earth/\_\_init\_\_.py](https://raw.githubusercontent.com/nickrobson/Earth/master/earth/__init__.py)
+These quotas can be changed in [config.json](https://raw.githubusercontent.com/nickrobson/Earth/master/config.json)
 
 Images are stored in `~/.earth/images`. You can delete them if you wish to, and I do my best to avoid large image downloads.
 
@@ -24,8 +24,8 @@ To install from PyPI, you need to install all packages listed in `requirements.t
 
 ### Windows:
 * Clone the GitHub repo.
-* Run the console command: `pip install -r requirements.txt`
-* To run the application, use `python earth.py`
+* Run the console command: `pip install -r requirements.txt`.
+* To run the application, use `python earth.py`.
 
 You can use the *Mac OS X / Linux* method if you use a Bash-compatible shell. I'll be making a Batch file when I get around to it.
 
