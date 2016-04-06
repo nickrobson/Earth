@@ -28,7 +28,11 @@ def get_file_path(name, ext):
 
 
 def get_hot_submissions(limit=20):
-    return list(reddit.get_subreddit('earthporn').get_hot(limit=limit))
+    try:
+        return list(reddit.get_subreddit('earthporn').get_hot(limit=limit))
+    except requests.exceptions.ConnectionError:
+        print "It looks like you're not connected to the internet!"
+        return []
 
 
 def get_image_urls(limit=20):
@@ -68,6 +72,7 @@ def fetch_images(limit=20):
     files = filter(delta, files)
     for f in files:
         os.remove(f)
+
     for name, url in get_image_urls(limit=limit):
         fetch_image(name, url)
 
