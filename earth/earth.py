@@ -64,6 +64,8 @@ def fetch_image(name, url):
     if ext == 'N/A':
         return
     fname = get_file_path(name, ext)
+    if len(fname) > 30:
+        fname = fname[0:30]
     if os.path.isfile(fname):
         return
     with open(fname, 'wb+') as f:
