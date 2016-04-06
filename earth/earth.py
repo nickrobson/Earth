@@ -22,6 +22,7 @@ def get_file_name(name, ext):
     fname = fname.replace('/', '|')
     return fname
 
+
 def get_file_path(name, ext):
     return os.path.join(imagedir, get_file_name(name, ext))
 
@@ -39,10 +40,10 @@ def get_ext(mime):
 
 
 def fetch_image(name, url):
-    res = requests.get(url, stream=True)       # 320000000
-    ext = get_ext(res.headers['Content-Type']) # 2396137
+    res = requests.get(url, stream=True)
+    ext = get_ext(res.headers['Content-Type'])
     clen = res.headers.get('Content-Length', 0)
-    if long(clen) > long(32 * 10 ** 7): # 32 MB
+    if long(clen) > long(32 * 10 ** 7):  # 32 MB
         print 'Skipped', name, '(' + str(res.headers['Content-Length']) + ')'
         return
     if ext == 'N/A':
@@ -59,8 +60,12 @@ def fetch_images(limit=20):
     files = os.listdir(imagedir)
     files = filter(lambda f: f.endswith('.jpg') or f.endswith('.png'), files)
     files = map(lambda f: os.path.join(imagedir, f), files)
+
     # Delete old files after 2 days.
-    files = filter(lambda f: os.path.getmtime(f) < int(time.time()) - (60 * 60 * 24 * 2), files)
+    def delta(f):
+        return os.path.getmtime(f) < int(time.time()) - (60 * 60 * 24 * 2)
+
+    files = filter(delta, files)
     for f in files:
         os.remove(f)
     for name, url in get_image_urls(limit=limit):

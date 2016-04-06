@@ -13,15 +13,25 @@ On Mac, there's a tray icon (text for now, but I'll make an icon!) which you can
 
 ## Installing
 
+Regardless of your Operating System, you will need [Python](https://python.org) and [Git](https://git-scm.com) installed.
+
+You also need to be able to either:
+
+* use PIP (package manager)
+* or install from PyPI (manual)
+
+To install from PyPI, you need to install all packages listed in `requirements.txt`.
+
 ### Windows:
 * Clone the GitHub repo.
 * Run the console command: `pip install -r requirements.txt`
 * To run the application, use `python earth.py`
 
-You can use the *Mac OS X* method if you use a Bash-compatible shell. I'll be making a Batch file when I get around to it.
+You can use the *Mac OS X / Linux* method if you use a Bash-compatible shell. I'll be making a Batch file when I get around to it.
 
-### Mac OS X:
+### Mac OS X / Linux:
 * Download the [install.sh](https://raw.githubusercontent.com/nickrobson/Earth/master/install.sh) script.
+* If on Linux, install `python-gconf` through your distro's package manager.
 * Run this script to launch the program. All necessary files will be downloaded upon first-run.
 
 ## Updating
@@ -29,5 +39,8 @@ You can use the *Mac OS X* method if you use a Bash-compatible shell. I'll be ma
 ### Windows:
 * Pull from the GitHub repo while in the directory.
 
-### Mac OS X:
+### Mac OS X / Linux:
 * Run the script as `install.sh update`, or `git pull` while inside the `~/.earth/source` directory.
+
+## TODO:
+* Windows tray support

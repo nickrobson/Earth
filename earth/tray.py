@@ -5,7 +5,6 @@ import earth
 try:
     import rumps
 
-
     class EarthApp(rumps.App):
 
         def __init__(self, name):
@@ -16,19 +15,15 @@ try:
         def set_random_background(self, sender):
             earth.set_random_background()
 
-
         @rumps.clicked('Fetch Images')
         def fetch_images(self, sender):
             earth.fetch_images()
 
-
     def run():
         EarthApp('Earth').run()
-
 
     if __name__ == '__main__':
         run()
 
-except ImportError, e:
-    print e
-    pass # I guess you're not on a Mac! >:(
+except ImportError:
+    pass  # I guess you're not on a Mac! >:(

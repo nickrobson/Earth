@@ -14,9 +14,8 @@ def set_random_background():
 def run_tray():
     try:
         tray.run()
-    except AttributeError, e:
-        print e
-        pass # can't run as tray! :(
+    except AttributeError:
+        pass  # can't run as tray! :(
 
 
 def fetch_timer(limit=20):
