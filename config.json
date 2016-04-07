@@ -1,5 +1,6 @@
 {
     "fetch_images": 3600,
+    "fetch_limit": 20,
     "background_change": 300,
     "max_file_size": 320000000,
     "keep_file_time": 172800
