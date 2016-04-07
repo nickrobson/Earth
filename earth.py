@@ -2,11 +2,11 @@
 
 import earth
 
-def toInt(string, def):
+def toInt(string, default):
     try:
         return int(string)
     except Exception:
-        return def
+        return default
 
 fetch_limit = toInt(earth.config.get('fetch_limit', ''), 20)
 earth.fetch_timer(fetch_limit)

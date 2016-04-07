@@ -21,7 +21,7 @@ def run_tray():
 
 def fetch_timer(limit=20):
     fetch_images(limit=limit)
-    t = Timer(config.get('fetch_images', 3600), fetch_timer, limit=limit)
+    t = Timer(config.get('fetch_images', 3600), fetch_timer, kwargs={'limit': limit})
     t.start()
 
 
