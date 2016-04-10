@@ -29,6 +29,8 @@ reddit = praw.Reddit(user_agent=ua)
 
 
 def get_file_name(name, ext):
+    if len(name) > 27:
+        name = name[0:30]
     fname = '%s.%s' % (name, ext)
     fname = fname.replace('/', '|')
     return fname
@@ -63,10 +65,7 @@ def fetch_image(name, url):
         return
     if ext == 'N/A':
         return
-    fname = get_file_name(name, ext)
-    if len(fname) > 30:
-        fname = fname[0:30]
-    fname = os.path.join(imagedir, fname)
+    fname = get_file_path(name, ext)
     if os.path.isfile(fname):
         return
     with open(fname, 'wb+') as f:
