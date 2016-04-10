@@ -63,9 +63,10 @@ def fetch_image(name, url):
         return
     if ext == 'N/A':
         return
-    fname = get_file_path(name, ext)
+    fname = get_file_name(name, ext)
     if len(fname) > 30:
         fname = fname[0:30]
+    fname = os.path.join(imagedir, fname)
     if os.path.isfile(fname):
         return
     with open(fname, 'wb+') as f:
