@@ -74,18 +74,19 @@ def fetch_image(name, url):
 
 
 def fetch_images(limit=20):
-    files = os.listdir(imagedir)
-    files = filter(lambda f: f.endswith('.jpg') or f.endswith('.png'), files)
-    files = map(lambda f: os.path.join(imagedir, f), files)
-    keep_time = config.get('keep_file_time', 60 * 60 * 24 * 2)
+    if config.get('delete_old_images', True):
+        files = os.listdir(imagedir)
+        files = filter(lambda f: f.endswith('.jpg') or f.endswith('.png'), files)
+        files = map(lambda f: os.path.join(imagedir, f), files)
+        keep_time = config.get('keep_file_time', 60 * 60 * 24 * 2)
 
-    # Delete old files after 2 days.
-    def delta(f):
-        return os.path.getmtime(f) < int(time.time()) - keep_time
+        # Delete old files after 2 days.
+        def delta(f):
+            return os.path.getmtime(f) < int(time.time()) - keep_time
 
-    files = filter(delta, files)
-    for f in files:
-        os.remove(f)
+        files = filter(delta, files)
+        for f in files:
+            os.remove(f)
 
     for name, url in get_image_urls(limit=limit):
         fetch_image(name, url)
