@@ -12,8 +12,8 @@ except:
     import json
 
 earthdir = os.path.expanduser('~/.earth')
-filesdir = earthdir + '/source'
-imagedir = earthdir + '/images'
+filesdir = os.path.join(earthdir, 'source')
+imagedir = os.path.join(earthdir, 'images')
 
 cfg = os.path.join(filesdir, 'config.json')
 config = dict()
