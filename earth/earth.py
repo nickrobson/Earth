@@ -57,20 +57,24 @@ def get_ext(mime):
 
 
 def fetch_image(name, url):
-    res = requests.get(url, stream=True)
-    ext = get_ext(res.headers['Content-Type'])
-    clen = res.headers.get('Content-Length', 0)
-    if long(clen) > long(config.get('max_file_size', 32 * 10 ** 7)):  # 32 MB
-        print 'Skipped', name, '(' + str(res.headers['Content-Length']) + ')'
+    try:
+        res = requests.get(url, stream=True)
+        ext = get_ext(res.headers['Content-Type'])
+        clen = res.headers.get('Content-Length', 0)
+        if long(clen) > long(config.get('max_file_size', 32 * 10 ** 7)):  # 32 MB
+            print 'Skipped', name, '(' + str(res.headers['Content-Length']) + ')'
+            return
+        if ext == 'N/A':
+            return
+        fname = get_file_path(name, ext)
+        if os.path.isfile(fname):
+            return
+        with open(fname, 'wb+') as f:
+            for chunk in res.iter_content(1024):
+                f.write(chunk)
+    except:
+        print 'It looks like something went wrong!'
         return
-    if ext == 'N/A':
-        return
-    fname = get_file_path(name, ext)
-    if os.path.isfile(fname):
-        return
-    with open(fname, 'wb+') as f:
-        for chunk in res.iter_content(1024):
-            f.write(chunk)
 
 
 def fetch_images(limit=20):
